@@ -1,0 +1,87 @@
+﻿@using GarmentsShop.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "View Cart";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+    Cart myCart = ViewBag.MyCart;
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="bg-primary">
+            <th colspan="6" class="col-lg-1 col-md-1 col-sm-1 hidden-xs">Cart Details</th>
+        </tr>
+        <tr class="bg-primary">
+            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Image</th>
+            <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Name</th>
+            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Price</th>
+            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Quantity</th>
+            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Amount</th>
+            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (myCart != null)
+        {
+            foreach (var item in myCart)
+            {
+                <tr class="datarow" >
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><img src="@item.ImageUrl" alt="@item.Name" class="dgIcon" /></td>
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">@item.Name</td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">@item.Price</td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><input  type="number" class="qtytextbox form-control" data-pid="@item.Id" min="1" max="100" value="@item.Quantity" /> </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">@item.Amount</td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <a href="/Products/Details/@item.Id" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                        <button class="btn btn-xs btn-danger dgbtn-delete" data-pid="@item.Id"><span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@section myscript{
+    <script type="text/javascript">
+        $(function () {
+
+            $(".dgbtn-delete").click(function () {
+                var currentrow = $(this).parents(".datarow");
+                var pid = $(this).data("pid");
+                $.ajax(
+                    {
+                        url: "/cart/delete/" + pid,
+                    }
+                ).done(function (removed) {
+                    if (removed) {
+                        currentrow.remove();
+                    }                    
+                });
+            });
+
+            $(".qtytextbox").blur(function () {
+                var pid = $(this).data("pid");
+                var qty = $(this).val();
+                var amtcell = $(this).parent().next();
+
+                $.ajax(
+                    {
+                        url: "/cart/UpdateQty?pid=" + pid + "&qty=" + qty
+                    }
+                ).done(function (data) {
+                    if (data.IsUpdated) {
+                        
+                        amtcell.text = data.Item.Amount;
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
+
+

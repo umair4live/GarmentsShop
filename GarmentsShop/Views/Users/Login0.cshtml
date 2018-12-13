@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div class="col-lg-6 col-lg-offset-3"   >
+        <div  style="margin:50px 0px;" >
+            <div class="panel panel-primary" data-hideanim="slide">
+                <div class="panel-heading">Login / Sign Up</div>
+                <div class="panel-body">
+                    <div id="loginpanel">
+
+                        @*@Html.ActionLink("Sign Up", "signup","users",new { style = "color:#ff0000", title = "signup link" })*@
+
+                        @using (Html.BeginForm("login", "users", FormMethod.Post, new { id = "loginform" }))
+                        {
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        @Html.TextBox("loginid",null,new { @class="form-control", placeholder="Login Id", required="required"})
+                                        <span class="form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                        @Html.Password("password", null, new { @class = "form-control", placeholder = "Password", required = "required" })
+                                        <span class="form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-log-in"></span> Login</button>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        @Html.CheckBox("RememberMe") Remember
+                                    </div>
+                                </div>
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/evsscript.js"></script>
+</body>
+</html>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GarmentsShop.Models.Products;
+using GarmentsShop.Models;
+using System;
+using GShop;
+using GShop.GarmentsShop;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +12,11 @@ namespace GarmentsShop.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            List<SummaryModel> modelsList = new GarmentsHandler().GetProducts().ToSummaryModelList();
+            return View(modelsList);
         }
     }
 }

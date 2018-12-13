@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GarmentsShop.Models;
+using GShop.GarmentsShop;
+using GarmentsShop.WebUI;
 using System.Web.Optimization;
 using System.Web.Routing;
 
@@ -13,9 +16,13 @@ namespace GarmentsShop
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            List<MenuModel> menuItems = new GarmentsHandler().GetDepartments().ToMenuModelList();
+            HttpContext.Current.Application.Add(WebUIHelper.MENU_ITEMS, menuItems);
         }
+
+
+
     }
 }

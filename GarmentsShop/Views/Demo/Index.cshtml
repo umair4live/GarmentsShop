@@ -1,0 +1,89 @@
+﻿@using GarmentsShop.Models
+@model DemoIndexModel
+
+
+
+@*@Html.ActionLink("Click Me","test","demo")
+@Html.BeginForm("login","users",FormMethod.Post)
+
+@Ajax.ActionLink("Click Me", "test", "demo",new AjaxOptions {  })
+
+@Ajax.BeginForm("login", "users",FormMethod.Post,new AjaxOptions { })*@
+
+
+
+
+
+
+
+@* 
+    @{ 
+    List<string> names = new List<string>();
+    names.Add("ali");
+    names.Add("ahmed");
+    names.Add("hassan");
+    names.Add("kashif");
+}
+    *@
+
+@{ 
+    string[] names = ViewBag.Names;
+    //string[] names = (string[])TempData["Names"];
+}
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>First ASP .NET View</title>
+</head>
+<body>
+
+    <h1>First ASP .NET View</h1>
+
+
+    @if (Model != null)
+    {
+    <div>
+        <p>Product: @Model.ProductName</p>
+        <p>Price: @Model.ProductPrice</p>
+        <p>Category: @Model.CategoryName</p>
+    </div>
+    }
+
+
+    @if (names != null)
+    {
+    <div>
+        <h2>List of Customers is given bellow:</h2>
+        <ul>
+            @foreach (var n in names)
+            {
+                <li>@n</li>
+            }
+        </ul>
+    </div>        
+    }
+    <div> 
+        This demo is created to explain basics of ASP .NET MVC
+    </div>
+    <div>This page is generated at @DateTime.Now.ToString("hh:mm:ss")</div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+
+            
+
+        });
+        
+    </script>
+
+</body>
+</html>

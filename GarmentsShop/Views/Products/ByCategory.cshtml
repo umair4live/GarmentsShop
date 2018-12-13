@@ -1,0 +1,15 @@
+﻿@using GarmentsShop.Models.Products
+@model ByCategoryModel
+
+@{
+    ViewBag.Title = "ByCategory";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading"><strong>@Model.CategoryName</strong></div>
+    <div class="panel-body">
+        @Html.Partial("~/Views/Products/_ProductListView.cshtml", Model.Products)
+    </div>
+</div>
+

@@ -1,0 +1,16 @@
+﻿@using GarmentsShop.Models.Products
+@model IEnumerable<SummaryModel>
+
+@foreach (var p in Model)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+        <div class="prodsum-item">
+            <a href="/products/details/@p.Id">
+                <img src="@p.ImageUrl" alt="@p.Name" class="img-responsive" />
+                <h2>@p.Name</h2>
+                <div class="prodsum-price">Rs.@p.Price/-</div>
+            </a>
+        </div>
+    </div>
+}

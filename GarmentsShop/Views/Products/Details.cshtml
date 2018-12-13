@@ -1,0 +1,76 @@
+﻿@using GarmentsShop.Models.Products
+@model DetailsModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ShopLayoutPage.cshtml";
+}
+
+<div class="pd-item">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h1>@Model.Name</h1></div>
+            <div class="panel-body">
+                <div class="col-lg-5">
+                    <img id="mainimage" src="@Model.ImageUrls.First()" alt="@Model.Name" class="img-responsive" />
+                </div>
+                <div class="col-lg-2">
+                    @foreach (var imgUrl in Model.ImageUrls)
+                    {
+                        <div style="margin-bottom:10px">
+                            <img src="@imgUrl" alt="@Model.Name" class="img-responsive img-thumbnail" />
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-5">
+                    <p>Rs.@Model.Price/-</p>
+                    <div>
+                        <p class="pull-left">Available Sizes:</p>
+                        <p class="pull-right">
+                            @foreach (var size in Model.SizesOffered)
+                            {
+                                <span class="pd-sizewpr" data-sizeid="@size.Id">@size.Name</span>
+                            }
+                        </p>
+                        <p class="clearfix"></p>
+                        <div class="pull-left" >Quantity</div>
+                        <div class="pull-right input-group col-lg-4">
+                            <input type="number" min="1" max="100" value="1" class="form-control" />
+                        </div>
+                        <p class="clearfix"></p>
+                        <p class="form-group">
+                            <a href="/Cart/Add?pid=@Model.Id&name=@Model.Name&qty=1&price=@Model.Price&sid=1&image=@Model.ImageUrls.First()" class="btn btn-default" data-cartdata="@Model.Id" ><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a>
+                        </p>
+                        <p>
+                            @Model.Description
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section myscript{
+    <script type="text/javascript">
+        $(function () {
+            $(".img-thumbnail").mouseenter(function () {
+                $("#mainimage").attr("src", $(this).attr("src"));
+            });
+
+            $(".pd-sizewpr").click(function () {
+                $(".pd-sizewpr").removeClass("pd-sizewpr-selected");
+                $(this).addClass("pd-sizewpr-selected");
+                var size = $(this).data("sizeid");
+                alert(size);
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
